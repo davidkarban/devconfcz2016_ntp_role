@@ -1,0 +1,14 @@
+---
+ntp_pkgs:
+  - ntp
+
+ntp_service: ntpd
+ntp_conf_dir: /etc/
+ntp_conf_name: ntp.conf
+
+ntp_default_servers:
+  - "0.centos.pool.ntp.org"
+  - "1.centos.pool.ntp.org"
+  - "2.centos.pool.ntp.org"
+  - "3.centos.pool.ntp.org"
+

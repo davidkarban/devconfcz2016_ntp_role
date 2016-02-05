@@ -1,0 +1,15 @@
+---
+ntp_pkgs:
+  - ntp
+
+ntp_service: ntp
+ntp_conf_dir: /etc/
+ntp_conf_name: ntp.conf
+
+ntp_default_servers:
+  - "0.debian.pool.ntp.org"
+  - "1.debian.pool.ntp.org"
+  - "2.debian.pool.ntp.org"
+  - "3.debian.pool.ntp.org"
+
+

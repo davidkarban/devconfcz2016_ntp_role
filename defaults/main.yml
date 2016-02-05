@@ -1,0 +1,5 @@
+---
+ntp_state: present
+
+ntp_servers: ntp_default_servers
+

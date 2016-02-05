@@ -1,0 +1,30 @@
+---
+- name: Load the OS specific variables
+  tags: ntp
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: Install the ntp packages in Redhat derivates
+  tags: ntp
+  yum: name={{ item }} state={{ ntp_state }}
+  with_items: ntp_pkgs
+  when: ansible_os_family == 'RedHat'
+
+- name: Install the ntp packages in Debian derivates
+  tags: ntp
+  apt: name={{ item }} state={{ ntp_state }} update_cache=yes cache_valid_time=600
+  with_items: ntp_pkgs
+  environment: 
+    # prevent ntp from autostart after installation
+    RUNLEVEL: 1
+  when: ansible_os_family == 'Debian'
+
+- name: Load ntp configuration
+  tags: ntp
+  template: src=ntp.conf.{{ ansible_os_family }}.j2 dest={{ ntp_conf_dir }}/{{ ntp_conf_name }}
+  notify: restart ntp
+
+- name: Ensure ntp is started and running
+  tags: ntp
+  service: name={{ ntp_service }} state=started enabled=yes
+  when: ntp_state == "present"
+
